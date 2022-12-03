@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Sportpad.Models
 {
-    public class Activity
+    public class Event
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -13,8 +13,8 @@ namespace Sportpad.Models
 
         public int MaximumNumber { get; set; }
 
-        public Guid LocationId { get; set; }
-        public Guid SportId { get; set; }
+        public Location Location { get; set; }
+        public Sport Sport { get; set; }
 
     }
 }
