@@ -12,27 +12,11 @@
         </button>
     </a>
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MaximumNumber)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
 <div style="flex-direction:row; display:flex; flex-wrap: wrap;">
     @foreach (var item in Model) {
             <div class="eventAd" style="margin:20px;background-color: white ;width:25%; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 20px; padding:10px;">
                 <div style="flex-direction: row ;display: flex;justify-content:space-around; align-items:center;">
-                    <p style="font-size:12px; margin-top: 10px;">Marko</p>
+                    <p style="font-size:12px; margin-top: 10px;">@Html.DisplayFor(modelItem => item.Username)</p>
                     <h5 style="font-weight:bold;">@Html.DisplayFor(modelItem => item.Name)</h5>
                     <a asp-action="Edit" asp-route-id="@item.Id"><button style="border:none;background-color:white"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button></a>
                 </div>
@@ -56,26 +40,6 @@
             </div>
     }
 </div>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MaximumNumber)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-    }
-    </tbody>
-</table>
 <style>
     ::-webkit-scrollbar {
     display: none;
