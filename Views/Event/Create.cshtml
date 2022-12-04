@@ -23,9 +23,23 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
+                
                 <label asp-for="MaximumNumber" class="control-label"></label>
                 <input asp-for="MaximumNumber" class="form-control" />
                 <span asp-validation-for="MaximumNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Location</label>
+                <select class="form-select" asp-items="@ViewBag.locations" asp-for="LocationId">
+
+                </select>
+                
+            </div>
+            <div class="form-group">
+                <label class="control-label">Sport</label>
+                <select class="form-select" asp-items="@ViewBag.sports" asp-for="SportId">
+                </select>
+
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

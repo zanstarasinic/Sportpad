@@ -13,15 +13,18 @@ namespace Sportpad.Controllers
     public class EventController : Controller
     {
         private readonly SportpadContext _context;
-
+        private Location[] locations;
+        private Sport[] sports;
         public EventController(SportpadContext context)
         {
             _context = context;
+            
         }
 
         // GET: Event
         public async Task<IActionResult> Index()
         {
+            
             return View(await _context.Events.ToListAsync());
         }
 
@@ -46,6 +49,21 @@ namespace Sportpad.Controllers
         // GET: Event/Create
         public IActionResult Create()
         {
+            locations = _context.Locations.ToArray();
+            sports = _context.Sports.ToArray();
+            List<SelectListItem> allLocations = new List<SelectListItem>();
+            List<SelectListItem> allSports = new List<SelectListItem>();
+            foreach (var location in locations)
+            {
+                allLocations.Add(new SelectListItem { Value = location.Id.ToString(), Text = location.Name });
+            }
+            foreach (var sport in sports)
+            {
+                allSports.Add(new SelectListItem { Value = sport.Id.ToString(), Text = sport.Name });
+            }
+
+            ViewBag.sports = allSports;
+            ViewBag.locations = allLocations;
             return View();
         }
 
@@ -54,11 +72,12 @@ namespace Sportpad.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,MaximumNumber")] Event @event)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,MaximumNumber,LocationId,SportId")] Event @event)
         {
             if (ModelState.IsValid)
             {
                 @event.Id = Guid.NewGuid();
+                //@event.LocationId = 
                 _context.Add(@event);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
