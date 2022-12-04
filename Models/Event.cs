@@ -16,5 +16,6 @@ namespace Sportpad.Models
         public Location Location { get; set; }
         public Sport Sport { get; set; }
 
+
     }
 }

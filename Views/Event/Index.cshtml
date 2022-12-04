@@ -9,39 +9,27 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MaximumNumber)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
+<div>
+    @foreach (var item in Model)
+    {
+    <div class="card">
+        <div class="card-body">
+
+            <h3 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h3>
+
+            <p class="card-text">
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaximumNumber)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            </p>
+            <h6 class="card-subtitle mb-2 text-muted">
+                Looking for: @Html.DisplayFor(modelItem => item.MaximumNumber)
+            </h6>
+
+
+
+            <a asp-action="Edit" asp-route-id="@item.Id">Check in</a> |
+        </div>
+        </div>
+        
+        }
+
+    </div>

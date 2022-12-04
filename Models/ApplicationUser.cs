@@ -13,5 +13,7 @@ namespace Sportpad.Models
         public string Gender { get; set; }
         public DateTime Birthdate { get; set; }
         public Sport[] Sports { get; set; }
+        public Event[] Events { get; set; }
+        public Rating[] Ratings { get; set; }
     }
 }
