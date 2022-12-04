@@ -1,6 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Sportpad.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sportpad.Data
 {
-    public class SportpadContext: IdentityDbContext<ApplicationUser>
+    public class SportpadContext: DbContext
     {
         public SportpadContext(DbContextOptions<SportpadContext> options) : base(options)
         {
@@ -19,16 +17,15 @@ namespace Sportpad.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<Sport> Sports { get; set; }
         public DbSet<Rating> Ratings { get; set; }
-        public DbSet<EventUser> EventsUser { get; set; }    
+        public DbSet<EventUser> EventUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Event>().ToTable("Event");
             modelBuilder.Entity<Location>().ToTable("Location");
             modelBuilder.Entity<Sport>().ToTable("Sport");
             modelBuilder.Entity<Rating>().ToTable("Rating");
-            modelBuilder.Entity<EventUser>().ToTable("EventUser");
+            modelBuilder.Entity<EventUser>().ToTable("UserProfile");
 
         }
     }
