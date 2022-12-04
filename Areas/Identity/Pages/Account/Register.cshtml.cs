@@ -69,8 +69,8 @@ namespace Sportpad.Areas.Identity.Pages.Account
             
             [Required]
             [DataType(DataType.Date)]
-            [Display(Name = "Birthday")]
-            public string Birthday { get; set; }
+            [Display(Name = "Birthdate")]
+            public DateTime Birthdate { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -85,7 +85,7 @@ namespace Sportpad.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Gender = Input.Gender, Birthdate = Input.Birthdate };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

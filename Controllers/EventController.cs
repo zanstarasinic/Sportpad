@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +16,12 @@ namespace Sportpad.Controllers
     public class EventController : Controller
     {
         private readonly SportpadContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
         private Location[] locations;
         private Sport[] sports;
-        public EventController(SportpadContext context)
+        public EventController(SportpadContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
             
         }
@@ -74,10 +79,12 @@ namespace Sportpad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,MaximumNumber,LocationId,SportId")] Event @event)
         {
+            var user = _userManager.GetUserName(User);
             if (ModelState.IsValid)
             {
                 @event.Id = Guid.NewGuid();
-                //@event.LocationId = 
+                @event.Username = user;
+                //@event.Username = 
                 _context.Add(@event);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
