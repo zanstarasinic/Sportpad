@@ -19,7 +19,7 @@ namespace Sportpad.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<Sport> Sports { get; set; }
         public DbSet<Rating> Ratings { get; set; }
-        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<EventUser> EventsUser { get; set; }    
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,7 +28,7 @@ namespace Sportpad.Data
             modelBuilder.Entity<Location>().ToTable("Location");
             modelBuilder.Entity<Sport>().ToTable("Sport");
             modelBuilder.Entity<Rating>().ToTable("Rating");
-            modelBuilder.Entity<UserProfile>().ToTable("UserProfile");
+            modelBuilder.Entity<EventUser>().ToTable("EventUser");
 
         }
     }

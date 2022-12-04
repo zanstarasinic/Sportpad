@@ -13,8 +13,11 @@ namespace Sportpad.Models
 
         public int MaximumNumber { get; set; }
 
-        public Location Location { get; set; }
-        public Sport Sport { get; set; }
+        public Guid LocationId { get; set; }
+        public Guid SportId { get; set; }
+
+        public string Username { get; set; }
+        public EventUser[] EventUsers { get; set; } 
 
 
     }
