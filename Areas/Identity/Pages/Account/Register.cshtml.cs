@@ -61,6 +61,16 @@ namespace Sportpad.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [StringLength(100)]
+            [Display(Name = "Gender")]
+            public string Gender { get; set; }
+            
+            [Required]
+            [DataType(DataType.Date)]
+            [Display(Name = "Birthday")]
+            public string Birthday { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
