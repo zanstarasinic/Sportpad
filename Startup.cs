@@ -35,6 +35,8 @@ namespace Sportpad
                 .AddEntityFrameworkStores<SportpadContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<Controllers.EventUserController, Controllers.EventUserController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

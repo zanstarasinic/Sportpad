@@ -12,7 +12,6 @@ namespace Sportpad.Models
         public string LastName { get; set; }
         public string Gender { get; set; }
         public DateTime Birthdate { get; set; }
-        public string Username { get; set; }
         
     }
 }

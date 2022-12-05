@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Pkcs;
 using System.Threading.Tasks;
 
 namespace Sportpad.Models
@@ -17,7 +18,7 @@ namespace Sportpad.Models
         public Guid SportId { get; set; }
 
         public string Username { get; set; }
-        public EventUser[] EventUsers { get; set; } 
+        public ICollection<EventUser> EventUsers { get; set; } 
 
 
     }
