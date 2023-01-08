@@ -2,7 +2,20 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center" style="margin-top: 3%;">
+    <h1 style="font-size: 80px; color:#0F076F;">Sportspad</h1>
+    <h1 style="color:#525151; font-size: 30px;">Najdi družbo za hobije in športe!</h1>
 </div>
+    <div>
+        <div style="flex-direction: row;">
+            <div style="position: absolute; top:34%; margin-left:10%;">
+                <img src="https://img.freepik.com/free-vector/coaches-kids-court-practicing-with-rackets-summer-camp-tiny-people-tennis-camp-tennis-academy-junior-tennis-training-concept-pinkish-coral-bluevector-isolated-illustration_335657-1482.jpg?w=1380&t=st=1673172338~exp=1673172938~hmac=2f2c5820220af1533b09e97a0d3259d0e6abd78e9d7bca4d681bb50c09e3a068" style="height:600px;">
+            </div>
+            <div style="width: 350px; margin-top:4%; position: absolute; align-items:center; justify-content:center;">
+                <p class="font-weight-bold" style="color:#525151; font-size: 19px;" >S pomočjo spletne aplikacija, lahko preko oglasov najdeš ljudi, ki jih potrebuješ za svoj hobi, šprot, rekracijo itd. Ali pa oglas narediš kar sam in s pomočjo tega pridobiš potrebne člane.</p>
+                <div>
+                    <a asp-controller="Event" asp-action="Index"><button type="button" class="btn btn-primary">Pojdi na oglase</button> </a>
+                </div>
+            </div>
+        </div>
+    </div>
