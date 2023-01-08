@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Sportpad.Data;
 using Sportpad.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -47,14 +48,48 @@ namespace Sportpad.Controllers
 
         // PUT api/<EventUserApiController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<EventUser>> Put(Guid id, [FromBody] EventUser eventUser)
         {
+            if (id != eventUser.Id)
+            {
+                return BadRequest();
+            }
+            _context.Entry(eventUser).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                var EventUser = _context.EventUsers.FindAsync(id);
+                if (EventUser == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+
+
         }
 
         // DELETE api/<EventUserApiController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<EventUser>> Delete(int id)
         {
+            var EventUser = await _context.EventUsers.FindAsync(id);
+            if (EventUser == null)
+            {
+                return NotFound();
+            }
+            _context.EventUsers.Remove(EventUser);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }
