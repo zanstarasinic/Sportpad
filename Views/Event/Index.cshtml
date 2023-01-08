@@ -18,7 +18,7 @@
     else
     {
         <a asp-area="Identity" asp-page="/Account/Login">
-            <button class="btn btn-primary " style="border:none; justify-content:center;border-radius: 40px;font-weight: bold; box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <button class="btn btn-primary " style="border:none; justify-content:center;;">
                 Create New
             </button>
         </a>
@@ -27,7 +27,7 @@
 </div>
 <div style="flex-direction:row; display:flex; flex-wrap: wrap;">
     @foreach (var item in Model) {
-            <div class="eventAd" style="margin:20px;background-color: white ;width:25%; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 20px; padding:10px;">
+        <div class="eventAd" style="margin:20px;background-color: white ;width:25%; border: 1px solid rgba(0, 0, 0, 0.2); border-radius: 20px; padding:10px;">
                 <div style="flex-direction: row ;display: flex;justify-content:space-around; align-items:center;">
                     <p style="font-size:12px; margin-top: 10px;">Marko</p>
                     <h5 style="font-weight:bold;">@Html.DisplayFor(modelItem => item.Name)</h5>
