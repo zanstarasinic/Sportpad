@@ -38,8 +38,11 @@ namespace Sportpad.Controllers
 
         // POST api/<EventUserApiController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<EventUser>> Post([FromBody] EventUser eventUser)
         {
+            _context.EventUsers.Add(eventUser);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         // PUT api/<EventUserApiController>/5

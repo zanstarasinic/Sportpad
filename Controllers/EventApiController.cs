@@ -1,32 +1,50 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Sportpad.Data;
 using Sportpad.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Sportpad.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/events")]
     [ApiController]
     public class EventApiController : ControllerBase
     {
+        private SportpadContext _context;
+        public EventApiController(SportpadContext context)
+        {
+            _context = context;
+        }
         // GET: api/<EventApiController>
         [HttpGet]
-        public Event[] Get()
+        public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
         {
-            return new Event[2];
+            return await _context.Events.ToListAsync();
         }
 
         // GET api/<EventApiController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<Event>> GetEvent(int id)
         {
-            return "value";
+            var Event = await _context.Events.FindAsync(id);
+
+            if (Event == null)
+            {
+                return NotFound();
+            }
+            return Event;
         }
 
         // POST api/<EventApiController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Event>> Post([FromBody] Event e)
         {
+            _context.Events.Add(e);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         // PUT api/<EventApiController>/5
