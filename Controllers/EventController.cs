@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -24,13 +25,16 @@ namespace Sportpad.Controllers
             _userManager = userManager;
             _context = context;
             
+            
         }
 
         // GET: Event
         public async Task<IActionResult> Index()
         {
             
-            return View(await _context.Events.ToListAsync());
+            var eventUser =  _context.EventUsers.ToArray();
+            ViewBag.EventUser = eventUser;
+            return View(_context.Events.ToList());
         }
 
         // GET: Event/Details/5

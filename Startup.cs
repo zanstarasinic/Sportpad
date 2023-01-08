@@ -29,12 +29,16 @@ namespace Sportpad
         {
             services.AddControllersWithViews();
             services.AddDbContext<SportpadContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("SportpadContext")));
+            options.UseSqlServer(Configuration.GetConnectionString("AzureContext")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options => options.Stores.MaxLengthForKeys = 128)
                 .AddEntityFrameworkStores<SportpadContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<Controllers.EventUserController, Controllers.EventUserController>();
+
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +68,11 @@ namespace Sportpad
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+            });
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Documentation");
             });
         }
     }
