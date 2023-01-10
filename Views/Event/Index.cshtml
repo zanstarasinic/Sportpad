@@ -9,94 +9,108 @@
 
 @if (SignInManager.IsSignedIn(User))
     {
-    <a asp-action="Create">
-        <button class="btn btn-primary " style="border:none; justify-content:center;">
-            Create New
-            </button>
-        </a>
+        <div style="position: absolute; bottom:15%; right:30%;">
+            <a asp-action="Create">
+                <button class="btn btn-primary" style="border:none; justify-content:center; border-radius: 15px !important; background-color: #0297fa !important;">
+                    Create new
+                </button>
+            </a>
+        </div>
     }
     else
     {
-        <a asp-area="Identity" asp-page="/Account/Login">
-            <button class="btn btn-primary " style="border:none; justify-content:center;;">
-                Create New
-            </button>
-        </a>
+        <div style="position: absolute; bottom:15%; right:30%;">
+            <a asp-area="Identity" asp-page="/Account/Login">
+                <button class="btn btn-primary" style="border:none; justify-content:center; border-radius: 15px !important; background-color: #0297fa !important;">
+                    Create new
+                </button>
+            </a>
+        </div>
     }
-<div style="position:sticky; bottom: 0">
-</div>
-<div class="card-deck"style="flex-direction:row; display:flex; flex-wrap: wrap; width: 100%">
-    @foreach (var item in Model) {
-        <div class="card eventAd bg-light mb-3" style="max-width: 25%">
-            
-                <div class="card-header"style="flex-direction: row ;display: flex;justify-content:space-around; align-items:center;">
-                <p style="font-size:12px; margin-top: 10px;">@Html.DisplayFor(modelItem => item.Username)</p>
-                    <h5 style="font-weight:bold;">@Html.DisplayFor(modelItem => item.Name)</h5>
-                    <a asp-action="Edit" asp-route-id="@item.Id"><button style="border:none;background-color:white"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button></a>
-                </div>
-                <div class="card-body">
-                <div style="overflow: hidden; margin-top:5px;">
-                    <div style="margin-left:15px ;margin-right:1px ;height: 200px;overflow: auto;">
-                        <p class="card-text">
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </p>
+<div style="overflow-y: scroll; height:85vh;">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div style="overflow-y: scroll;">
+    <div style="flex-direction:row; display:flex; flex-wrap: wrap;">
+        @foreach (var item in Model) {
+                <div class="eventAd" style="margin:20px;background-color: white ;width:25%; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 20px; padding:10px;">
+                    <div style="flex-direction: row ;display: flex;justify-content:space-around; align-items:center;">
+                        <p style="font-size:12px; margin-top: 10px;">@Html.DisplayFor(modelItem => item.Username)</p>
+                        <h5 style="font-weight:bold;">@Html.DisplayFor(modelItem => item.Name)</h5>
+                    @if(SignInManager.IsSignedIn(User)){
+                        if(UserManager.GetUserName(User).Equals(item.Username)){
+                            <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-ellipsis-h" aria-hidden="true" style="color: black;"></i></a>
+                            }
+                            else
+                            {
+                                <p></p>
+                            }
+                        }
+                        else
+                            {
+                                <p></p>
+                            }                  
                     </div>
-                </div>
-                <div style="flex-direction: row ;display: flex; align-items: center; margin-top:10px; width:100%;" >
-                    <div class="text-center" style=" flex-direction: row ;width:40px; align-content:center; border-radius: 10px; height:30px">
-                     @{
-                            IEnumerable<dynamic> eventUsers = ViewBag.EventUser;
-                            var matches = eventUsers.Where(x => x.EventId == item.Id);
-                            var count = matches.Count();
-                            <p class="d-inline-block" style="color: Black; font-weight: bold ;">@count</p>
+                    <div style="overflow: hidden; margin-top:5px;">
+                        <div style="margin-left:15px ;margin-right:1px ;height: 200px;overflow: auto;">
+                            <p style="font-weight: bold ; color: #515151;">
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </p>
+                        </div>
+                    </div>
+                    <div style="flex-direction: row ;display: flex; align-items: center; margin-top:10px;">
+                        <div style="flex-direction: row;display:flex; margin-left:10px; background-color: #D9D9D9; width:40px; align-content:center; border-radius: 10px; height:30px; justify-content:center">
+                        @{
+                                IEnumerable<dynamic> eventUsers = ViewBag.EventUser;
+                                var matches = eventUsers.Where(x => x.EventId == item.Id);
+                                var count = matches.Count();
+                                <p style ="color: Black; font-weight: bold ;">@count</p>
+                            }
+                            
+                            <p style="color: Black; font-weight: bold ;">/</p>
+                            <p style="color: Black; font-weight: bold ;">@Html.DisplayFor(modelItem => item.MaximumNumber)</p>
+                        </div>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                        
+                            IEnumerable<dynamic> eventUser = ViewBag.EventUser;
+                        var match = (eventUser.Any(x => (x.UserId == new Guid(UserManager.GetUserId(User))) && x.EventId == item.Id));
+                            // var match = ViewBag.EventUser.Where(p => String.Equals(p.userId, UserManager.GetUserId(User), StringComparison.CurrentCulture) && String.Equals(p.eventId, item.Id, StringComparison.CurrentCulture));
+                        
+                        
+                        @if (match == false)
+                        {
+                            <a asp-controller="EventUser" asp-action="Create"
+                                asp-route-id=@item.Id
+                                asp-route-name=@UserManager.GetUserId(User)>
+                                <button id="btn" class="gobutton btn btn-success btn-lg float-right" style="border:none; justify-content:center; margin-left: 120px;border-radius: 20px; font-weight: bold;box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 20px 0 rgba(0, 0, 0, 0.19);">
+                                    @*@Html.ActionLink("Pridem", "Create", "EventUser", new { id = @item.Id, name = UserManager.GetUserAsync(User) })*@ Pridem
+                                </button>
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-controller="EventUser" asp-action="Delete"
+                            asp-route-id=@item.Id
+                            asp-route-name=@UserManager.GetUserId(User)>
+                                <button id="btn" class="gobutton btn btn-warning btn-lg float-right" style="border:none; justify-content:center; margin-left: 120px;border-radius: 20px; font-weight: bold;box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 20px 0 rgba(0, 0, 0, 0.19);">
+                                    @*@Html.ActionLink("Pridem", "Create", "EventUser", new { id = @item.Id, name = UserManager.GetUserAsync(User) })*@ Prekliči
+                                </button>
+                            </a>
                         }
 
-                        <p class="d-inline-block" style="color: Black; font-weight: bold ;">/</p>
-                        <p class="d-inline-block" style="color: Black; font-weight: bold ;">@Html.DisplayFor(modelItem => item.MaximumNumber)</p>
+                }
+                        else
+                        {
+                            <a asp-area="Identity" asp-page="/Account/Login">
+                            <button id="btn" class="gobutton btn btn-success btn-lg float-right" style="border:none; justify-content:center; margin-left: 120px;border-radius: 20px; font-weight: bold;box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 20px 0 rgba(0, 0, 0, 0.19);">
+                                Pridem
+                            </button>
+                            </a>
+                        }
                     </div>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                    
-                        IEnumerable<dynamic> eventUser = ViewBag.EventUser;
-                    var match = (eventUser.Any(x => (x.UserId == new Guid(UserManager.GetUserId(User))) && x.EventId == item.Id));
-                        // var match = ViewBag.EventUser.Where(p => String.Equals(p.userId, UserManager.GetUserId(User), StringComparison.CurrentCulture) && String.Equals(p.eventId, item.Id, StringComparison.CurrentCulture));
-                    
-                    
-                    @if (match == false)
-                    {
-                        <a asp-controller="EventUser" asp-action="Create"
-                            asp-route-id=@item.Id
-                            asp-route-name=@UserManager.GetUserId(User)
-                            class="float-right">
-                            <button id="btn" class="gobutton btn btn-success btn-lg float-right" style="border:none; justify-content:center; font-weight: bold;">
-                                @*@Html.ActionLink("Pridem", "Create", "EventUser", new { id = @item.Id, name = UserManager.GetUserAsync(User) })*@ Pridem
-                            </button>
-                        </a>
-                    }
-                    else
-                    {
-                        <a asp-controller="EventUser" asp-action="Delete"
-                        asp-route-id=@item.Id
-                        asp-route-name=@UserManager.GetUserId(User)>
-                            <button id="btn" class="gobutton btn btn-warning btn-lg float-right" style="border:none; justify-content:center; font-weight: bold;">
-                                @*@Html.ActionLink("Pridem", "Create", "EventUser", new { id = @item.Id, name = UserManager.GetUserAsync(User) })*@ Prekliči
-                            </button>
-                        </a>
-                    }
-
-            }
-                    else
-                    {
-                        <a asp-area="Identity" asp-page="/Account/Login">
-                        <button id="btn" class="gobutton btn btn-success btn-lg float-right" style="border:none; justify-content:center; margin-left: 120px;border-radius: 20px; font-weight: bold;box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 20px 0 rgba(0, 0, 0, 0.19);">
-                            Pridem
-                        </button>
-                        </a>
-                    }
                 </div>
-                </div>
-            </div>
-    }
+        }
+    </div>
 </div>
 
 <script type="text/javascript">
