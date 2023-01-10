@@ -9,7 +9,7 @@
 
 @if (SignInManager.IsSignedIn(User))
     {
-        <div style="position: absolute; bottom:15%; right:30%;">
+        <div style="bottom:15%; right:30%;">
             <a asp-action="Create">
                 <button class="btn btn-primary" style="border:none; justify-content:center; border-radius: 15px !important; background-color: #0297fa !important;">
                     Create new
@@ -19,7 +19,7 @@
     }
     else
     {
-        <div style="position: absolute; bottom:15%; right:30%;">
+        <div style="bottom:15%; right:30%;">
             <a asp-area="Identity" asp-page="/Account/Login">
                 <button class="btn btn-primary" style="border:none; justify-content:center; border-radius: 15px !important; background-color: #0297fa !important;">
                     Create new
@@ -34,7 +34,10 @@
         @foreach (var item in Model) {
                 <div class="eventAd" style="margin:20px;background-color: white ;width:25%; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 20px; padding:10px;">
                     <div style="flex-direction: row ;display: flex;justify-content:space-around; align-items:center;">
-                        <p style="font-size:12px; margin-top: 10px;">@Html.DisplayFor(modelItem => item.Username)</p>
+                        <a asp-controller="Ratings" asp-action="Index" asp-route-name="@item.Username">
+                            <p style="font-size:12px; margin-top: 10px;">@Html.DisplayFor(modelItem => item.Username)</p>
+                            </a>
+                        
                         <h5 style="font-weight:bold;">@Html.DisplayFor(modelItem => item.Name)</h5>
                     @if(SignInManager.IsSignedIn(User)){
                         if(UserManager.GetUserName(User).Equals(item.Username)){
