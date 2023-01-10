@@ -6,7 +6,7 @@
 @{
     ViewData["Title"] = "Index";
 }   
-
+<div class="text-left row form-group">
 @if (SignInManager.IsSignedIn(User))
     {
     <a asp-action="Create">
@@ -18,12 +18,12 @@
     else
     {
         <a asp-area="Identity" asp-page="/Account/Login">
-            <button class="btn btn-primary " style="border:none; justify-content:center;border-radius: 40px;font-weight: bold; box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <button class="btn btn-primary " style="border:none; justify-content:center;">
                 Create New
             </button>
         </a>
     }
-<div style="position:sticky; bottom: 0">
+
 </div>
 <div style="flex-direction:row; display:flex; flex-wrap: wrap;">
     @foreach (var item in Model) {
@@ -34,8 +34,8 @@
                     <a asp-action="Edit" asp-route-id="@item.Id"><button style="border:none;background-color:white"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button></a>
                 </div>
                 <div style="overflow: hidden; margin-top:5px;">
-                    <div style="margin-left:15px ;margin-right:1px ;height: 200px;overflow: auto;">
-                        <p style="font-weight: bold ; color: #515151;">
+                    <div style="min-height: 150px">
+                        <p class="card-text">
                             @Html.DisplayFor(modelItem => item.Description)
                         </p>
                     </div>
@@ -76,7 +76,7 @@
                         asp-route-id=@item.Id
                         asp-route-name=@UserManager.GetUserId(User)>
                             <button id="btn" class="gobutton btn btn-warning btn-lg float-right" style="border:none; justify-content:center; margin-left: 120px;border-radius: 20px; font-weight: bold;box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 20px 0 rgba(0, 0, 0, 0.19);">
-                                @*@Html.ActionLink("Pridem", "Create", "EventUser", new { id = @item.Id, name = UserManager.GetUserAsync(User) })*@ PrekliËi
+                                @*@Html.ActionLink("Pridem", "Create", "EventUser", new { id = @item.Id, name = UserManager.GetUserAsync(User) })*@ Prekliƒçi
                             </button>
                         </a>
                     }
